@@ -12,6 +12,6 @@ deps = [
   "-rrequirements.txt",
 ]
 commands = [
-  "python3 -m unittest tests/unit/test_diffusion2d_functions.py && python3 -m pytest tests/integration/test_diffusion2d.py {posargs}"
+  "python -m unittest tests/unit/test_diffusion2d_functions.py && python -m pytest tests/integration/test_diffusion2d.py {posargs}"
 ]
 
