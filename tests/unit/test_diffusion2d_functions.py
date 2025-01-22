@@ -100,7 +100,6 @@ class TestDiffusion2D(unittest.TestCase):
             np.isclose(u[0, 0], self.solver.T_cold),
             "Point (0,0) should remain at T_cold.",
         )
-        self.assertEqual(1, 2)
 
 
 if __name__ == "__main__":
