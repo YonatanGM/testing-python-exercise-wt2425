@@ -5,6 +5,7 @@ Tests for functionality checks in class SolveDiffusion2D
 from diffusion2d import SolveDiffusion2D
 import numpy as np
 
+
 def test_initialize_physical_parameters():
     """
     Checks function SolveDiffusion2D.initialize_domain
@@ -31,9 +32,9 @@ def test_initialize_physical_parameters():
     # => dt= 0.0004/0.5= 0.0008
     dt_expected = 0.0008
 
-    assert np.isclose(solver.dt, dt_expected, rtol=1e-12), \
-        f"dt expected {dt_expected}, got {solver.dt}"
-
+    assert np.isclose(
+        solver.dt, dt_expected, rtol=1e-12
+    ), f"dt expected {dt_expected}, got {solver.dt}"
 
 
 def test_set_initial_condition():
@@ -54,8 +55,8 @@ def test_set_initial_condition():
     solver.initialize_physical_parameters(d=4.0, T_cold=200.0, T_hot=400.0)
 
     # Now we manually compute the expected array
-    nx = solver.nx   # 20
-    ny = solver.ny   # 20
+    nx = solver.nx  # 20
+    ny = solver.ny  # 20
     r = 2.0
     cx = 5.0
     cy = 5.0
@@ -71,7 +72,7 @@ def test_set_initial_condition():
         for j in range(ny):
             xcoord = i * dx
             ycoord = j * dy
-            distance_sq = (xcoord - cx)**2 + (ycoord - cy)**2
+            distance_sq = (xcoord - cx) ** 2 + (ycoord - cy) ** 2
             if distance_sq < r**2:
                 u_expected[i, j] = solver.T_hot
 
@@ -79,11 +80,11 @@ def test_set_initial_condition():
     u_computed = solver.set_initial_condition()
 
     # Compare the entire array
-    assert u_computed.shape == u_expected.shape, (
-        f"Shape mismatch: expected {u_expected.shape}, got {u_computed.shape}"
-    )
+    assert (
+        u_computed.shape == u_expected.shape
+    ), f"Shape mismatch: expected {u_expected.shape}, got {u_computed.shape}"
 
     # Use np.allclose for a floating-point safe comparison of all elements
-    assert np.allclose(u_computed, u_expected), (
-        "Computed 2D array does not match expected 2D array for set_initial_condition"
-    )
+    assert np.allclose(
+        u_computed, u_expected
+    ), "Computed 2D array does not match expected 2D array for set_initial_condition"

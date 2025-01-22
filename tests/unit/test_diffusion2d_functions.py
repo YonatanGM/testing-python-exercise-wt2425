@@ -8,7 +8,6 @@ from diffusion2d import SolveDiffusion2D
 
 
 class TestDiffusion2D(unittest.TestCase):
-
     def setUp(self):
         self.solver = SolveDiffusion2D()
 
@@ -30,12 +29,12 @@ class TestDiffusion2D(unittest.TestCase):
         self.assertEqual(
             self.solver.nx,
             nx_expected,
-            f"nx should be {nx_expected} but got {self.solver.nx}"
+            f"nx should be {nx_expected} but got {self.solver.nx}",
         )
         self.assertEqual(
             self.solver.ny,
             ny_expected,
-            f"ny should be {ny_expected} but got {self.solver.ny}"
+            f"ny should be {ny_expected} but got {self.solver.ny}",
         )
 
     def test_initialize_physical_parameters(self):
@@ -59,13 +58,19 @@ class TestDiffusion2D(unittest.TestCase):
 
         # Check
         self.assertEqual(self.solver.D, d, f"D should be {d} but got {self.solver.D}")
-        self.assertEqual(self.solver.T_cold, T_cold,
-                         f"T_cold should be {T_cold} but got {self.solver.T_cold}")
-        self.assertEqual(self.solver.T_hot, T_hot,
-                         f"T_hot should be {T_hot} but got {self.solver.T_hot}")
+        self.assertEqual(
+            self.solver.T_cold,
+            T_cold,
+            f"T_cold should be {T_cold} but got {self.solver.T_cold}",
+        )
+        self.assertEqual(
+            self.solver.T_hot,
+            T_hot,
+            f"T_hot should be {T_hot} but got {self.solver.T_hot}",
+        )
         self.assertTrue(
             np.isclose(self.solver.dt, dt_expected, rtol=1e-12),
-            f"dt should be {dt_expected}, got {self.solver.dt}"
+            f"dt should be {dt_expected}, got {self.solver.dt}",
         )
 
     def test_set_initial_condition(self):
@@ -81,19 +86,22 @@ class TestDiffusion2D(unittest.TestCase):
 
         # Check shape
         self.assertEqual(
-            u.shape,
-            (100, 200),
-            f"Expected array shape (100, 200), got {u.shape}"
+            u.shape, (100, 200), f"Expected array shape (100, 200), got {u.shape}"
         )
 
         # The center is index [50, 50]
         self.assertTrue(
             np.isclose(u[50, 50], self.solver.T_hot),
-            "Center of hot disc should be T_hot."
+            "Center of hot disc should be T_hot.",
         )
 
         # Outside circle at [0, 0]
         self.assertTrue(
             np.isclose(u[0, 0], self.solver.T_cold),
-            "Point (0,0) should remain at T_cold."
+            "Point (0,0) should remain at T_cold.",
         )
+        self.assertEqual(1, 2)
+
+
+if __name__ == "__main__":
+    unittest.main()
